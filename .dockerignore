@@ -1,0 +1,25 @@
+# Python
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/.venv/
+
+# Secrets and runtime data
+**/.env
+backend/data/jobs.db
+backend/data/auth_state.json
+backend/data/profile.json
+backend/logs/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Job matcher runtime artifacts
+job_matcher/chroma_db/
+job_matcher/output/
+job_matcher/resume/
+
+# IDE
+.vscode/
+.idea/
