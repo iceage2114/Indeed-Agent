@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Environment files
+.env
+backend/.env
+job_matcher/.env
+
+# Secrets and auth
+backend/data/auth_state.json
+backend/data/profile.json
+
+# Database
+backend/data/jobs.db
+
+# Logs
+backend/logs/
+*.log
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Job matcher output and stores
+job_matcher/chroma_db/
+job_matcher/output/
+job_matcher/resume/
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Docker
+.dockerignore

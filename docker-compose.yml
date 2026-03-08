@@ -1,0 +1,47 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # CLI tool - not a long-running service.
+  # Run the matcher:    docker compose run --rm --profile matcher job_matcher
+  # Populate ChromaDB:  docker compose run --rm --profile matcher job_matcher python chroma_store.py
+  # Force re-embed:     docker compose run --rm --profile matcher job_matcher python chroma_store.py --force
+  job_matcher:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: job_matcher
+    volumes:
+      - ./backend/data:/app/backend_data:ro
+      - ./job_matcher/chroma_db:/app/chroma_db
+      - ./job_matcher/resume:/app/resume
+      - ./job_matcher/output:/app/output
+    environment:
+      - DB_PATH=/app/backend_data/jobs.db
+      - CHROMA_PATH=/app/chroma_db
+      - RESUME_PATH=/app/resume/resume.pdf
+      - OUTPUT_DIR=/app/output
+      - TOP_N_CANDIDATES=20
+    env_file:
+      - job_matcher/.env
+    profiles:
+      - matcher
