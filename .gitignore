@@ -31,10 +31,8 @@ job_matcher/output/
 job_matcher/resume/
 
 # IDE
-.vscode/
+.vscode/settings.json
 .idea/
 
-# Internal docs
-DESIGN.md
-AGENT_SPEC.md
-.github/
+# Docker
+.dockerignore
